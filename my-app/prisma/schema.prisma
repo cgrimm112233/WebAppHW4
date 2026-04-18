@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model TaskList {
+  isS1 Boolean @id
+  tasks Task[]
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  name String
+  page TaskList @relation(fields: [pageIsS1], references: [isS1])
+  pageIsS1 Boolean
+  isComplete Boolean @default(false)
+}
